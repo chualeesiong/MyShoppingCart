@@ -1,0 +1,12 @@
+﻿@{
+    ViewBag.Title = "Incorrect Username";
+}
+<h2>Please check your username!</h2>
+
+@using (Html.BeginForm("Index", "Login", FormMethod.Post))
+{<table>
+        <tr>
+            <td colspan="2" align="right"><input type="submit" value="Go to Login page" /></td>
+        </tr>
+    </table>
+}

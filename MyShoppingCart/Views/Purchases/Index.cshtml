@@ -1,0 +1,66 @@
+﻿@model MyShoppingCart.Models.Product
+@using MyShoppingCart.Models
+@using MyShoppingCart.DB
+
+@{
+    string sessionId = (string)ViewData["sessionId"];
+    int customerId = (int)ViewData["CustomerId"];
+    List<Product> productHistory = (List<Product>)ViewData["ProductHistory"];
+
+}
+
+<h2>My Purchases</h2>
+
+<table>
+    <tr>
+        <td>@Html.ActionLink("Home", "Index", "Login") |</td>
+        <td> @Html.ActionLink("Logout", "Index", "Logout", new { sessionId = sessionId }, null)</td>
+    </tr>
+</table>
+
+@foreach (Product product in productHistory)
+{
+
+<form>
+    <table>
+        <tr>
+            <td>@product.ProductName </td>
+        </tr>
+        <tr>
+            <td>@product.ProductDesc </td>
+        </tr>
+        <tr>
+            <td> Purchased On: @PurchaseData.GetDateofPurchase(product.ProductId, customerId)</td>
+        </tr>
+        <tr>
+            <td> Quantity: @PurchaseData.GetTotalQuantity(customerId, product.ProductId)</td>
+        </tr>
+        <tr>
+            <td>
+                <select name="activation code">
+
+                    @{List<string> listAC = PurchaseData.GetActivationCode(customerId, product.ProductId);
+                        foreach (string activationcode in listAC)
+                        {
+                        <option value="activationcode"> @activationcode </option>
+                        }
+                     }
+
+                </select>
+            </td>
+        </tr>
+    </table>
+</form>
+}
+
+<style>
+    table {
+        width: 100%;
+    }
+
+    #viewbox {
+        border: 1px solid black;
+        text-align: center;
+        padding: 10px
+    }
+</style>

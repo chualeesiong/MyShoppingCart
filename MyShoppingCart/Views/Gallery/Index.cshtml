@@ -1,0 +1,54 @@
+﻿@model MyShoppingCart.Models.Product
+@using MyShoppingCart.Models
+
+@{
+    string sessionId = (string)ViewData["sessionId"];
+    string customerName = (string)ViewData["customerName"];
+    List<Product> products = (List<Product>)ViewData["products"];
+}
+
+<h2>Gallery</h2>
+
+<table id="productTable">
+    <tr>
+        <td> Hello, @customerName </td>
+        <td align="center"> @Html.ActionLink("My Purchases", "Index", "Purchases", new { sessionId = sessionId }, null) | @Html.ActionLink("Logout", "Index", "Logout", new { sessionId = sessionId }, null) </td>
+        <td align="right"> @Html.ActionLink("Shopping Cart", "Index", "Cart", new { sessionId = sessionId }, null) </td>
+    </tr>
+
+    <tr> </tr>
+
+    <tr>
+        <td colspan="3"> <input width="600" type="text" id="Searchbox" placeholder="Enter your search here..." autofocus /></td>
+    </tr>
+    <tr></tr>
+
+    @foreach (Product product in products)
+    {
+        using (Html.BeginForm("AddToCart", "Cart", FormMethod.Post))
+        {
+            <tr>
+                <td id="productbox" colspan="3">
+                    @Html.Partial("ProductPartialView", product)
+                </td>
+            </tr>
+        }
+    }
+    </table>   
+
+
+<style>
+    table{
+        width: 100%;       
+    }
+    #productbox {
+        border: 1px solid black;
+        text-align:center;
+        padding:10px          
+    }
+    #ProductPartialViewBox {
+        border: 1px solid black;
+        text-align: center;
+        padding: 10px
+    }
+</style>

@@ -1,0 +1,44 @@
+﻿@model MyShoppingCart.Models.Product
+@using MyShoppingCart.Models
+@using MyShoppingCart.DB
+
+@{
+    string sessionId = (string)ViewData["sessionId"];
+    List<Product> productsInCart = (List<Product>)ViewData["ProductList"];
+
+}
+
+<h2>Cart</h2>
+
+<table>
+    <tr>
+        <td>View Cart</td>
+        <td> @Html.ActionLink("Continue Shopping", "Index", "Gallery", new { sessionId = @sessionId }, null) |</td>
+        <td> @Html.ActionLink("Checkout", "Index", "Purchases", new { sessionId = @sessionId }, null)</td>
+        <td align="right"> <b>Total:</b> <div id="total"></div></td>
+    </tr>
+</table>
+
+@foreach (Product product in productsInCart)
+{
+    <table>
+        <tr>
+            <td>Product Name: @product.ProductName</td>
+        </tr>
+        <tr>
+            <td>Product Description: @product.ProductDesc</td>
+        </tr>
+        <tr>
+            <td>Product Price: $@product.ProductPrice</td>
+        </tr>
+        <tr>
+            <td>Product Quantity: @CartData.GetTotalQuantity(sessionId, product.ProductId)</td>
+        </tr>
+        <tr>
+            <td id="subTotal">Subtotal price:@(@product.ProductPrice*@CartData.GetTotalQuantity(sessionId, product.ProductId)) </td>
+        </tr>
+        
+    </table>
+
+}
+

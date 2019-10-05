@@ -1,0 +1,9 @@
+﻿@{
+    ViewBag.Title = "Login Successful!";
+    string sessionId = (string)ViewData["sessionId"];
+}
+<h2>@ViewBag.Title.</h2>
+<h3>@ViewBag.Message</h3>
+
+<p>You have successfully logged in. </p>
+<p> Your session Id is @sessionId </p>
